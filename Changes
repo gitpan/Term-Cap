@@ -10,3 +10,6 @@ Revision history for Perl extension Term::Cap.
 
 1.03:  Wed Nov 28 10:09:38 GMT 2001
        - VMS Support from Charles Lane <lane@DUPHY4.Physics.Drexel.Edu>
+
+1.04   Thu Nov 29 16:31:53 GMT 2001
+       - Fixed warnings in the test.

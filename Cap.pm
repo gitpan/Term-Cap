@@ -4,7 +4,7 @@ use Carp;
 
 use vars qw($VERSION);
 
-$VERSION = '1.03';
+$VERSION = '1.04';
 
 # Version undef: Thu Dec 14 20:02:42 CST 1995 by sanders@bsdi.com
 # Version 1.00:  Thu Nov 30 23:34:29 EST 2000 by schwern@pobox.com
@@ -17,6 +17,8 @@ $VERSION = '1.03';
 #       Fixed no argument Tgetent()
 # Version 1.03:  Wed Nov 28 10:09:38 GMT 2001
 #       VMS Support from Charles Lane <lane@DUPHY4.Physics.Drexel.Edu>
+# Version 1.04:  Thu Nov 29 16:22:03 GMT 2001
+#       Fixed warnings in test
 
 # TODO:
 # support Berkeley DB termcaps
@@ -275,19 +277,19 @@ sub Tgetent { ## public -- static method
     # Precompile $entry into the object
     $entry =~ s/^[^:]*://;
     foreach $field (split(/:[\s:\\]*/,$entry)) {
-	if ($field =~ /^(\w\w)$/) {
+	if (defined $field && $field =~ /^(\w\w)$/) {
 	    $self->{'_' . $field} = 1 unless defined $self->{'_' . $1};
 	    # print STDERR "DEBUG: flag $1\n";
 	}
-	elsif ($field =~ /^(\w\w)\@/) {
+	elsif (defined $field && $field =~ /^(\w\w)\@/) {
 	    $self->{'_' . $1} = "";
 	    # print STDERR "DEBUG: unset $1\n";
 	}
-	elsif ($field =~ /^(\w\w)#(.*)/) {
+	elsif (defined $field && $field =~ /^(\w\w)#(.*)/) {
 	    $self->{'_' . $1} = $2 unless defined $self->{'_' . $1};
 	    # print STDERR "DEBUG: numeric $1 = $2\n";
 	}
-	elsif ($field =~ /^(\w\w)=(.*)/) {
+	elsif (defined $field && $field =~ /^(\w\w)=(.*)/) {
 	    # print STDERR "DEBUG: string $1 = $2\n";
 	    next if defined $self->{'_' . ($cap = $1)};
 	    $_ = $2;
@@ -348,7 +350,7 @@ sub Tpad { ## public
     my($string, $cnt, $FH) = @_;
     my($decr, $ms);
 
-    if ($string =~ /(^[\d.]+)(\*?)(.*)$/) {
+    if (defined $string && $string =~ /(^[\d.]+)(\*?)(.*)$/) {
 	$ms = $1;
 	$ms *= $cnt if $2;
 	$string = $3;
@@ -601,7 +603,7 @@ termcap(5)
 # Below is a default entry for systems where there are terminals but no
 # termcap
 1;
-__END__
+__DATA__
 vt220|vt200|DEC VT220 in vt100 emulation mode:
 am:mi:xn:xo:
 co#80:li#24:
