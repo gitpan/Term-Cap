@@ -1,12 +1,23 @@
 package Term::Cap;
 
-use Carp;
+# Since the debugger uses Term::ReadLine which uses Term::Cap, we want
+# to load as few modules as possible.  This includes Carp.pm.
+sub carp {
+    require Carp;
+    goto &Carp::carp;
+}
+
+sub croak {
+    require Carp;
+    goto &Carp::croak;
+}
+
 use strict;
 
 use vars qw($VERSION $VMS_TERMCAP);
 use vars qw($termpat $state $first $entry);
 
-$VERSION = '1.07';
+$VERSION = '1.08';
 
 # Version undef: Thu Dec 14 20:02:42 CST 1995 by sanders@bsdi.com
 # Version 1.00:  Thu Nov 30 23:34:29 EST 2000 by schwern@pobox.com
@@ -27,8 +38,11 @@ $VERSION = '1.07';
 #       Preload the default VMS termcap from Charles Lane
 #       Don't carp at setting OSPEED unless warnings are on.
 # Version 1.07:  Wed Jan  2 21:35:09 GMT 2002
-#       Sanity check on infocmp output from Norton Allen 
+#       Sanity check on infocmp output from Norton Allen
 #       Repaired INSTALLDIRS thanks to Michael Schwern
+# Version 1.08:  Sat Sep 28 11:33:15 BST 2002
+#       Late loading of 'Carp' as per Michael Schwern
+#
 
 # TODO:
 # support Berkeley DB termcaps
@@ -75,7 +89,7 @@ output the string to $FH if specified.
 
 # Preload the default VMS termcap.
 # If a different termcap is required then the text of one can be supplied
-# in $Term::Cap::VMS_TERMCAP before Tgetent is called.  
+# in $Term::Cap::VMS_TERMCAP before Tgetent is called.
 
 if ( $^O eq 'VMS') {
        chomp (my @entry = <DATA>);
@@ -109,11 +123,11 @@ sub termcap_path { ## private
     return grep(-f, @termcap_path);
 }
 
-=item B<Tgetent> 
+=item B<Tgetent>
 
 Returns a blessed object reference which the user can
 then use to send the control strings to the terminal using B<Tputs>
-and B<Tgoto>.  
+and B<Tgoto>.
 
 The function extracts the entry of the specified terminal
 type I<TERM> (defaults to the environment variable I<TERM>) from the
@@ -212,7 +226,7 @@ sub Tgetent { ## public -- static method
 	# last resort--fake up a termcap from terminfo 
 	local $ENV{TERM} = $term;
 
-        if ( $^O eq 'VMS' ) { 
+        if ( $^O eq 'VMS' ) {
           $entry = $VMS_TERMCAP;
         }
         else {
@@ -220,7 +234,7 @@ sub Tgetent { ## public -- static method
               eval
               {
                 my $tmp = `infocmp -C 2>/dev/null`;
-                
+
                 if (( $tmp !~ m%^/%s ) && ( $tmp =~ /(^|\|)${termpat}[:|]/s)) {
                    $entry = $tmp;
                 }
@@ -583,7 +597,7 @@ sub Trequire { ## public
 }
 
 =back
-          
+
 =head1 EXAMPLES
 
     use Term::Cap;
