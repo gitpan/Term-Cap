@@ -14,8 +14,17 @@ To install this module type the following:
 
 DEPENDENCIES
 
-This module has no dependencies except it requires an OS that supplies
+This module requires an OS that supplies
 a termcap like terminal capability description file.
+
+As of 1.02 there is also a dependency on Test::More to perform the test suite.
+This module will come as standard with 5.8.0 onward.
+
+REPORTING BUGS AND PROBLEMS
+
+Suspected bugs in this module should be reported both to the maintainer 
+(Jonathan Stowe <jns@gellyfish.com>) and to the perl5-porters 
+(perl5-porters@perl.org).
 
 COPYRIGHT AND LICENCE
 
