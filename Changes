@@ -2,3 +2,11 @@ Revision history for Perl extension Term::Cap.
 
 1.01  Sun Oct 28 13:07:36 2001
        - Version retrieved from the Perl 5.7.2 distribution
+
+1.02: Sat Nov 17 13:50:39 2001
+       - Altered layout of the POD
+       - Added Test::More to PREREQ_PM in Makefile.PL
+       - Fixed no argument Tgetent()
+
+1.03:  Wed Nov 28 10:09:38 GMT 2001
+       - VMS Support from Charles Lane <lane@DUPHY4.Physics.Drexel.Edu>
