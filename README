@@ -1,4 +1,4 @@
-Term::Cap version 1.06
+Term::Cap version 1.07
 ======================
 
 Interface to the terminal capability database.
@@ -10,11 +10,7 @@ To install this module type the following:
    perl Makefile.PL
    make
    make test
-   make install  UNINST=1
-
-The 'UNINST=1' in the 'make install' is important as it ensure that any
-previous version (possibly in the core directories) will be removed and
-you will get this version when you 'use Term::Cap'.
+   make install
 
 DEPENDENCIES
 

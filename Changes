@@ -21,3 +21,7 @@ Revision history for Perl extension Term::Cap.
 1.06   Thu Dec  6 19:10:15 GMT 2001
        - More VMS fixes from Charles Lane
        - Don't carp about setting OSPEED unless warnings are on
+1.07
+       - Fixed Makefile.PL with INSTALLDIRS - from Michael Schwern
+       - Sanity check on infocmp output - from Norton Allen 
+         <allen@huarp.harvard.edu>
