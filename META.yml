@@ -1,0 +1,10 @@
+#XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
+name:         Term-Cap
+version:      1.09
+version_from: Cap.pm
+installdirs:  perl
+requires:
+    Test::More:                    0.33
+
+distribution_type: module
+generated_by: ExtUtils::MakeMaker version 6.13
