@@ -1,10 +1,12 @@
 package Term::Cap;
 
 use Carp;
+use strict;
 
 use vars qw($VERSION);
+use vars qw($termpat $state $first $entry);
 
-$VERSION = '1.04';
+$VERSION = '1.05';
 
 # Version undef: Thu Dec 14 20:02:42 CST 1995 by sanders@bsdi.com
 # Version 1.00:  Thu Nov 30 23:34:29 EST 2000 by schwern@pobox.com
@@ -19,6 +21,9 @@ $VERSION = '1.04';
 #       VMS Support from Charles Lane <lane@DUPHY4.Physics.Drexel.Edu>
 # Version 1.04:  Thu Nov 29 16:22:03 GMT 2001
 #       Fixed warnings in test
+# Version 1.05:  Mon Dec  3 15:33:49 GMT 2001
+#       Don't try to fall back on infocmp if it's not there. From chromatic.
+#
 
 # TODO:
 # support Berkeley DB termcaps
@@ -196,7 +201,8 @@ sub Tgetent { ## public -- static method
         else {
            eval
            {
-	     $entry = `infocmp -C 2>/dev/null`;
+	     $entry = `infocmp -C 2>/dev/null`
+                    if grep { -x "$_/infocmp" } split /:/, $ENV{PATH};
            }
         }
     }

@@ -13,3 +13,8 @@ Revision history for Perl extension Term::Cap.
 
 1.04   Thu Nov 29 16:31:53 GMT 2001
        - Fixed warnings in the test.
+
+1.05   Mon Dec  3 15:37:43 GMT 2001
+       - Don't attempt to run infocmp if it's not there - from chromatic
+         <chromatic@rmci.net>
+
