@@ -1,10 +1,14 @@
-#XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
-name:         Term-Cap
-version:      1.09
-version_from: Cap.pm
-installdirs:  perl
-requires:
+--- #YAML:1.0
+name:                Term-Cap
+version:             1.10
+abstract:            Perl termcap interface
+license:             ~
+generated_by:        ExtUtils::MakeMaker version 6.36
+distribution_type:   module
+requires:     
     Test::More:                    0.33
-
-distribution_type: module
-generated_by: ExtUtils::MakeMaker version 6.13
+meta-spec:
+    url:     http://module-build.sourceforge.net/META-spec-v1.2.html
+    version: 1.2
+author:
+    - Jonathan Stowe <gellyfish@gellyfish.com>
