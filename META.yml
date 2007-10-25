@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:                Term-Cap
-version:             1.10
+version:             1.11
 abstract:            Perl termcap interface
 license:             ~
 generated_by:        ExtUtils::MakeMaker version 6.36
