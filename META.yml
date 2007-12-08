@@ -1,14 +1,14 @@
 --- #YAML:1.0
 name:                Term-Cap
-version:             1.11
+version:             1.12
 abstract:            Perl termcap interface
 license:             ~
-generated_by:        ExtUtils::MakeMaker version 6.36
+author:              
+    - Jonathan Stowe <gellyfish@gellyfish.com>
+generated_by:        ExtUtils::MakeMaker version 6.38
 distribution_type:   module
 requires:     
     Test::More:                    0.33
 meta-spec:
-    url:     http://module-build.sourceforge.net/META-spec-v1.2.html
-    version: 1.2
-author:
-    - Jonathan Stowe <gellyfish@gellyfish.com>
+    url:     http://module-build.sourceforge.net/META-spec-v1.3.html
+    version: 1.3
