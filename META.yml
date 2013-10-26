@@ -1,14 +1,11 @@
 ---
 abstract: 'Perl termcap interface'
 author:
-  - 'Jonathan Stowe <gellyfish@gellyfish.com>'
-build_requires:
-  ExtUtils::MakeMaker: 0
-configure_requires:
-  ExtUtils::MakeMaker: 0
+  - 'Jonathan Stowe <jns@gellyfish.co.uk>'
+build_requires: {}
 dynamic_config: 1
 generated_by: 'ExtUtils::MakeMaker version 6.62, CPAN::Meta::Converter version 2.120921'
-license: unknown
+license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
@@ -17,6 +14,6 @@ no_index:
   directory:
     - t
     - inc
-requires:
-  Test::More: 0.33
-version: 1.14
+resources:
+  repository: https://github.com/jonathanstowe/Term-Cap.git
+version: 1.15
