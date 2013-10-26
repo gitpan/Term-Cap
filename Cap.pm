@@ -19,7 +19,7 @@ use strict;
 use vars qw($VERSION $VMS_TERMCAP);
 use vars qw($termpat $state $first $entry);
 
-$VERSION = '1.12';
+$VERSION = '1.13';
 
 # Version undef: Thu Dec 14 20:02:42 CST 1995 by sanders@bsdi.com
 # Version 1.00:  Thu Nov 30 23:34:29 EST 2000 by schwern@pobox.com
@@ -57,6 +57,8 @@ $VERSION = '1.12';
 #       EBDIC fixes from Chun Bing Ge <gecb@cn.ibm.com>
 # Version 1.12: Sat Dec  8 00:10:21 GMT 2007
 #       QNX test fix from Matt Kraai <kraai@ftbfs.org>
+# Version 1.13: Thu Dec 22 22:21:09 GMT 2011
+#       POD error fix from Domin Hargreaves <dom@earth.li>
 #
 # TODO:
 # support Berkeley DB termcaps
@@ -85,8 +87,6 @@ More information on the terminal capabilities will be found in the
 termcap manpage on most Unix-like systems.
 
 =head2 METHODS
-
-=over 4
 
 The output strings for B<Tputs> are cached for counts of 1 for performance.
 B<Tgoto> and B<Tpad> do not cache.  C<$self-E<gt>{_xx}> is the raw termcap
@@ -145,6 +145,8 @@ sub termcap_path
     return grep { defined $_ && -f $_ } @termcap_path;
 }
 
+=over 4
+
 =item B<Tgetent>
 
 Returns a blessed object reference which the user can
@@ -183,7 +185,7 @@ It takes a hash reference as an argument with two optional keys:
 
 The terminal output bit rate (often mistakenly called the baud rate)
 for this terminal - if not set a warning will be generated
-and it will be defaulted to 9600.  I<OSPEED> can be be specified as
+and it will be defaulted to 9600.  I<OSPEED> can be specified as
 either a POSIX termios/SYSV termio speeds (where 9600 equals 9600) or
 an old DSD-style speed ( where 13 equals 9600).
 
@@ -243,7 +245,7 @@ sub Tgetent
        }
        else
        {
-          if ( $^O eq 'Win32' )
+          if ( $^O eq 'MSWin32' )
           {
              $self->{TERM} =  'dumb';
           }
@@ -296,6 +298,7 @@ sub Tgetent
                         $entry = $tmp;
                     }
                 };
+                warn "Can't run infocmp to get a termcap entry: $@" if $@;
             }
             else
             {
@@ -476,7 +479,7 @@ It takes three arguments:
 
 The literal string to be output.  If it starts with a number and an optional
 '*' then the padding will be increased by an amount relative to this number,
-if the '*' is present then this amount will me multiplied by $cnt.  This part
+if the '*' is present then this amount will be multiplied by $cnt.  This part
 of $string is removed before output/
 
 =item B<$cnt>
@@ -679,9 +682,9 @@ sub Tgoto
         elsif ( $code eq '>' )
         {
             ( $code, $tmp, $string ) = unpack( "CCa99", $string );
-            if ( $tmp[$[] > $code )
+            if ( $tmp[0] > $code )
             {
-                $tmp[$[] += $tmp;
+                $tmp[0] += $tmp;
             }
         }
         elsif ( $code eq '2' )

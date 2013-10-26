@@ -5,10 +5,6 @@ my $file;
 BEGIN {
         $file = $0;
         chdir 't' if -d 't';
-
-        if ( $ENV{PERL_CORE} ) {
-           @INC = '../lib';
-        }
 }
 
 END {
@@ -24,7 +20,8 @@ my $files = join '',
 	( $ENV{HOME} . '/.termcap', # we assume pretty UNIXy system anyway
 	  '/etc/termcap', 
 	  '/usr/share/misc/termcap' );
-unless( $files || $^O eq 'VMS' ) {
+my $terminfo = `infocmp -C 2>/dev/null`;
+unless( $files || $terminfo || $^O eq 'VMS' ) {
     plan skip_all => 'no termcap available to test';
 }
 else {
@@ -167,7 +164,7 @@ SKIP:
    local *^O;
    local *ENV;
    delete $ENV{TERM};
-   $^O = 'Win32';
+   $^O = 'MSWin32';
 
    my $foo = Term::Cap->Tgetent();
    is($foo->{TERM} ,'dumb','Windows gets "dumb" by default');
